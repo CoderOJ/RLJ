@@ -66,6 +66,7 @@ class Config(object):
         self.time_limit = config['Time Limit']
         self.memory_limit = config['Memory Limit']
         self.compiling_parameter = config.get('Compiling Parameter', '')
+        self.special_judge = config.get('Special Judge', None)
         self.silent = config['Silent']
 
 def makeConfig(config_file, argument):

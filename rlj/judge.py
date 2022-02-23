@@ -73,6 +73,7 @@ class Runner(object):
         self.datas = config.datas
         self.time = config.time_limit
         self.memory = config.memory_limit
+        self.spj = config.special_judge
         self.firstWA = None
 
     def _judge(self, task, data, prog):
@@ -113,9 +114,14 @@ class Runner(object):
         if returncode != 0:
             return JudgeStatus('RE', time_used, max_memory, returncode)
 
-        diff_result = os.system(
-            'diff -Z temp/temp.out {} >> temp/diff_log{}'.format(
-                data[1], task))
+        if self.spj == None:
+            diff_result = os.system(
+                'diff -Z temp/temp.out {} >> temp/diff_log{}'.format(
+                    data[1], task))
+        else:
+            diff_result = os.system(
+                '{} {} temp/temp.out {} >> temp/diff_log{}'.format(
+                    self.spj, input_file, data[1], task))
 
         if diff_result == 0:
             os.system('rm -f temp/diff_log{}'.format(task))
