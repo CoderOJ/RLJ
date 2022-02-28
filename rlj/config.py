@@ -71,7 +71,7 @@ class Config(object):
 
 def makeConfig(config_file, argument):
         with open(config_file) as f:
-            config = yaml.load(f.read())
+            config = yaml.load(f.read(), Loader=yaml.Loader)
         if argument['-j'] is not None:
             config['Source'] = argument['-j']
         if argument['--O2']:
